@@ -13,6 +13,15 @@ func AccountController(c web.C, w http.ResponseWriter, r *http.Request) {
     db := GetDatabase()
     username := r.PostForm.Get("username")
     password := r.PostForm.Get("password")
+    checkUser := models.Account{}
+    db.Where("username = ?", username).First(&checkUser)
+    if checkUser.Username != "" {
+        RenderJson(w, map[string]interface{}{
+            "success": false,
+            "info": "username exists",
+        })
+        return
+    }
     user := models.Account{Username: username, Password: password}
     record := db.NewRecord(user)
     if record {
