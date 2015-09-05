@@ -8,6 +8,8 @@ import (
 type ConfigFile struct {
     Debug bool `json:"debug"`
     LogPath string `json:"log_path"`
+    TemplatePath string `json:"template_path"`
+    StaticPath string `json:"static_path"`
 }
 
 var Config ConfigFile

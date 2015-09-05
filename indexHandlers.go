@@ -7,7 +7,8 @@ import (
 )
 
 func indexHandler(c web.C, w http.ResponseWriter, r *http.Request) {
-    fmt.Fprintf(w, "Hello World")
+    renderTemplate(w, "index.html", "base.html", map[string]interface{}{
+    })
 }
 
 func helloHandler(c web.C, w http.ResponseWriter, r *http.Request) {
