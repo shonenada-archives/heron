@@ -13,7 +13,7 @@ type Route struct {
 
 var routes = []Route {
     {"/", "get", indexHandler},
-    {"/hello/:name", "get", helloHandler},
+    {"/:who", "get", indexHandler},
 }
 
 func SetupRoutes () {
