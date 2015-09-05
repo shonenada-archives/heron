@@ -10,6 +10,7 @@ type ConfigFile struct {
     LogPath string `json:"log_path"`
     TemplatePath string `json:"template_path"`
     StaticPath string `json:"static_path"`
+    DatabaseURI string `json:"database_uri"`
 }
 
 var Config ConfigFile
