@@ -52,17 +52,25 @@ body {
   text-align: center;
 }
 
+a {
+  color: #fafafa;
+  text-decoration: none;
+}
+
 #obj-not-found {
   font-size: 4vw;
-  line-height: 90vh;
+  margin-top: 40vh;
   text-align: center;
 }
 
-#obj-not-found-again {
-  color: #888;
-  margin-top: -10vh;
-  text-align: center;
-  margin: 0 auto;
+#obj-not-found-join,
+#obj-not-found-join a {
+  font-size: 1.5vw;
+  color: #aaa;
+}
+
+#obj-not-found-join a:hover {
+  color: #ccc;
 }
 
 #who {
