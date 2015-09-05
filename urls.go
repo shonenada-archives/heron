@@ -12,28 +12,29 @@ type Route struct {
 }
 
 var routes = []Route {
-    {"/", []string{"get"}, IndexController},
-    {"/p/:who", []string{"get"}, IndexController},
-    {"/account/join", []string{"get", "post"}, AccountJoinController},
+    {"/", []string{"GET"}, IndexController},
+    {"/p/:who", []string{"GET"}, IndexController},
+    {"/accounts", []string{"POST"}, AccountController},
+    {"/accounts/join", []string{"GET"}, AccountJoinController},
 }
 
 func SetupRoutes() {
     for _, route := range routes {
         for _, method := range route.methods {
             switch method {
-            case "get":
+            case "GET":
                 goji.Get(route.url, route.handler)
                 break
-            case "post":
+            case "POST":
                 goji.Post(route.url, route.handler)
                 break
-            case "put":
+            case "PUT":
                 goji.Put(route.url, route.handler)
                 break
-            case "patch":
+            case "PATCH":
                 goji.Patch(route.url, route.handler)
                 break
-            case "delete":
+            case "DELETE":
                 goji.Delete(route.url, route.handler)
                 break
             default:
