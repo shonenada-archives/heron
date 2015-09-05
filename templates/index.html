@@ -1,13 +1,15 @@
-{{define "Content"}}
+{{ define "HeaderHTML" }}{{ end }}
+
+{{ define "Content" }}
 <div id="obj-not-found">
   代碼如詩，而 <span id="who">{{.Who}}</span> 卻「找不到對象」。
 </div>
-<div id="obj-not-found-again">
-  http://ObjNotFound.com
+<div id="obj-not-found-join">
+  &gt;&gt; <a href="/account/join">我也找不到</a> &lt;&lt;
 </div>
-{{end}}
+{{ end }}
 
-{{define "FooterScript"}}
+{{ define "FooterHTML" }}
 <script>
   function getQueryStringByName(name){ 
     var result = location.search.match(new RegExp("[\?\&]" + name+ "=([^\&]+)","i")); 
@@ -21,4 +23,4 @@
     document.getElementById('who').innerHTML = who;
   }
 </script>
-{{end}}
+{{ end }}

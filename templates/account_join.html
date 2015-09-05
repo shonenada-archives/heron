@@ -1,0 +1,23 @@
+{{ define "HeaderHTML" }}
+    <link rel="stylesheet" type="text/css" href="/static/styles/account.css" />
+{{ end }}
+
+{{ define "Content" }}
+<div class="form-wrapper">
+  <form action="/account/join" method="post">
+    <section>
+      <label class="label">Username</label>
+      <input type="text" name="username" />
+    </section>
+    <section>
+      <label class="label">Password</label>
+      <input type="password" name="password" />
+    </section>
+    <section>
+      <button>Submit</button>
+    </section>
+  </form>
+</div>
+{{ end }}
+
+{{ define "FooterHTML" }}{{ end }}

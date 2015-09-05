@@ -25,7 +25,7 @@ var tplFuncMaps = template.FuncMap {
     },
 }
 
-func parseTemplate(file, baseFile string, data map[string]interface{}) []byte {
+func ParseTemplate(file, baseFile string, data map[string]interface{}) []byte {
     var buf bytes.Buffer
     tpl := template.New(file).Funcs(tplFuncMaps)
     baseTemplatePath := filepath.Join(Config.TemplatePath, baseFile)
@@ -49,7 +49,7 @@ func parseTemplate(file, baseFile string, data map[string]interface{}) []byte {
     return buf.Bytes()
 }
 
-func renderTemplate(w http.ResponseWriter, file, baseFile string, data map[string]interface{}) {
-    page := parseTemplate(file, baseFile, data)
+func RenderTemplate(w http.ResponseWriter, file, baseFile string, data map[string]interface{}) {
+    page := ParseTemplate(file, baseFile, data)
     fmt.Fprintf(w, string(page))
 }

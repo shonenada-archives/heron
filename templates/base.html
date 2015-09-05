@@ -4,9 +4,10 @@
     <meta charset="utf-8" />
     <title>Heron</title>
     <link rel="stylesheet" type="text/css" href="/static/styles/base.css" />
+    {{ template "HeaderHTML" .}}
   </head>
   <body>
-    {{template "Content" .}}
+    {{ template "Content" . }}
   </body>
- {{template "FooterScript" .}}
+{{ template "FooterHTML" . }}
 </html>
