@@ -18,6 +18,8 @@ func AccountController(c web.C, w http.ResponseWriter, r *http.Request) {
 			raw_data := map[string]interface{}{"err": "user not found"}
 			data := json.Marshal(raw_data)
 			return 404, data
+		} else {
+			return RenderJson(w, user)
 		}
 	}
 
@@ -28,29 +30,24 @@ func AccountController(c web.C, w http.ResponseWriter, r *http.Request) {
 func AccountSignController(c web.C, w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	db := GetDatabase()
-}
-
-func aaaaa() {
-	db := GetDatabase()
-	name := c.URLParams["name"]
-	username := r.PostForm.Get("username")
-	password := r.PostForm.Get("password")
-	checkUser := models.Account{}
-	db.Where("username = ?", username).First(&checkUser)
-	if checkUser.Username != "" {
-		RenderJson(w, map[string]interface{}{
-			"success": false,
-			"info":    "username exists",
-		})
-		return
+	if r.Method == "POST" {
+		username := r.PostForm.Get("username")
+		password := r.PostForm.Get("password")
+		user = models.Account{}
+		db.Where("username = ? AND password = ?", username, password).First(&user)
+		if user.Username == username {
+			// session signin
+			return RenderJson(w, map[string]interface{}{
+				"success": true,
+			})
+		} else {
+			return RenderJson(w, map[string]interface{}{
+				"success": false,
+				"message": "username or password is incorrect",
+			})
+		}
 	}
-	user := models.Account{Username: username, Password: password}
-	record := db.NewRecord(user)
-	if record {
-		db.Create(&user)
+	if r.Method == "DELETE" {
+		// session signout
 	}
-	RenderJson(w, map[string]interface{}{
-		"success": true,
-		"info":    "inserted",
-	})
 }
