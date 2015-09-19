@@ -4,12 +4,12 @@ import (
 	"time"
 )
 
-type Account struct {
+type Event struct {
 	ID        uint `gorm:"primary_key"`
-	Username  string
-	Password  string
 	Name      string
-	Actived   bool
+	Content   string `sql:"size:1024"`
+	Due       time.Time
+	UserId    uint
 	CreatedAt time.Time
 	UpdateAt  time.Time
 	DeletedAt *time.Time

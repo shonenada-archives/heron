@@ -1,16 +1,10 @@
 package heron
 
 import (
-    "net/http"
-    "github.com/zenazn/goji/web"
+	"github.com/zenazn/goji/web"
+	"net/http"
 )
 
 func IndexController(c web.C, w http.ResponseWriter, r *http.Request) {
-    who := c.URLParams["who"]
-    if who == "" {
-        who = "你"
-    }
-    RenderTemplate(w, "index.html", "base.html", map[string]interface{}{
-        "Who": who,
-    })
+	RenderTemplate(w, "index.html", "base.html", map[string]interface{}{})
 }

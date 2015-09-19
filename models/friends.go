@@ -4,12 +4,10 @@ import (
 	"time"
 )
 
-type Account struct {
+type Follow struct {
 	ID        uint `gorm:"primary_key"`
-	Username  string
-	Password  string
-	Name      string
-	Actived   bool
+	UserId    uint
+	FollowId  uint
 	CreatedAt time.Time
 	UpdateAt  time.Time
 	DeletedAt *time.Time
