@@ -2,12 +2,15 @@
 
 {{ define "Content" }}
 <div>
-  <form action="">
+  <form action="/apis/accounts/sign" method="POST">
     <section>
       <label>username: </label><input type="text" name="username" />
     </section>
     <section>
       <label>password: </label><input type="password" name="password" />
+    </section>
+    <section>
+      <button>SignIn</button>
     </section>
   </form>
 </div>

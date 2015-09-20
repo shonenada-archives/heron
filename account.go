@@ -17,7 +17,7 @@ func AccountController(c web.C, w http.ResponseWriter, r *http.Request) {
 		user := models.Account{}
 		db.Where("username = ?", name).First(&user)
 		if user.Username == "" {
-			raw_data := map[string]string{"err": "user not found"}
+			raw_data := map[string]string{"message": "user not found"}
 			data, err := json.Marshal(raw_data)
 			if err != nil {
 				http.Error(w, err.Error(), 500)
@@ -42,6 +42,20 @@ func AccountSignController(c web.C, w http.ResponseWriter, r *http.Request) {
 	if r.Method == "POST" {
 		username := r.PostForm.Get("username")
 		password := r.PostForm.Get("password")
+		if username == "" {
+			RenderJson(w, map[string]interface{}{
+				"success": false,
+				"message": "usernmae cannot be empty",
+			})
+			return
+		}
+		if password == "" {
+			RenderJson(w, map[string]interface{}{
+				"succcess": false,
+				"message":  "password cannot be empty",
+			})
+			return
+		}
 		user := models.Account{}
 		db.Where("username = ? AND password = ?", username, password).First(&user)
 		if user.Username == username {
