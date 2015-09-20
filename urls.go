@@ -18,6 +18,7 @@ var routes = []Route{
 	{"/apis/accounts/sign", []string{"POST", "DELETE"}, AccountSignController},
 	{"/apis/events", []string{"GET", "POST"}, EventController},
 	{"/apis/follows", []string{"POST"}, FollowController},
+	{"/account/signin", []string{"GET"}, AccountSignInViewController},
 }
 
 func SetupRoutes() {
