@@ -29,6 +29,19 @@ func FollowController(c web.C, w http.ResponseWriter, r *http.Request) {
 			})
 			return
 		}
+		follow := models.Follow{UserId: currentUser.ID, FollowId: account.ID}
+		if db.NewRecord(&follow) {
+			db.Create(&follow)
+			RenderJson(w, map[string]interface{}{
+				"success": true,
+			})
+			return
+		} else {
+			RenderJson(w, map[string]interface{}{
+				"success": false,
+				"message": "cannot follow",
+			})
+		}
 		return
 	}
 }
