@@ -17,7 +17,7 @@ func AccountController(c web.C, w http.ResponseWriter, r *http.Request) {
 		user := models.Account{}
 		db.Where("username = ?", name).First(&user)
 		if user.Username == "" {
-			raw_data := map[string]string{"err": "user not found"}
+			raw_data := map[string]string{"message": "user not found"}
 			data, err := json.Marshal(raw_data)
 			if err != nil {
 				http.Error(w, err.Error(), 500)

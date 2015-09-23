@@ -16,8 +16,10 @@ var routes = []Route{
 	{"/apis/accounts", []string{"POST"}, AccountController},
 	{"/apis/accounts/:name", []string{"GET"}, AccountController},
 	{"/apis/accounts/sign", []string{"POST", "DELETE"}, AccountSignController},
-	{"/apis/events", []string{"GET", "POST"}, EventController},
-	{"/apis/follows", []string{"POST"}, FollowController},
+	{"/apis/events", []string{"GET", "POST"}, EventsController},
+	{"/apis/events/:eid", []string{"GET", "DELETE"}, EventController},
+	{"/apis/follows", []string{"POST"}, FollowsController},
+	{"/apis/follows/:fid", []string{"DELETE"}, FollowController},
 	{"/account/signin", []string{"GET"}, AccountSignInViewController},
 }
 
