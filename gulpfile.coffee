@@ -38,7 +38,13 @@ gulp.task 'default', ['clean'], ->
 
 gulp.task 'watch', ['default'], ->
   gulp.start 'browser-sync'
-  gulp.watch [].concat(assets.glob(), templates.files()), ['build']
+  gulp.watch assets.glob(), ['build']
+  gulp.watch templates.files(), ['reload']
+
+gulp.task 'reload', ->
+  gulp.src "#{templates.files()}"
+    .pipe browserSync.reload
+      stream: true  
 
 gulp.task 'stylus', ->
   options =
