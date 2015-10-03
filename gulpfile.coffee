@@ -19,6 +19,9 @@ styles =
 scripts =
   name: 'scripts'
   exts: ['coffee', 'js']
+templates =
+  files: ->
+    "templates/**/*.html"
 assets =
   name: 'assets'
   dirs: [styles.name, scripts.name]
@@ -35,7 +38,7 @@ gulp.task 'default', ['clean'], ->
 
 gulp.task 'watch', ['default'], ->
   gulp.start 'browser-sync'
-  gulp.watch assets.glob(), ['build']
+  gulp.watch [].concat(assets.glob(), templates.files()), ['build']
 
 gulp.task 'stylus', ->
   options =
