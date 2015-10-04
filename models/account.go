@@ -9,6 +9,7 @@ type Account struct {
 	Username  string
 	Password  string
 	Name      string
+	Avatar    string
 	Actived   bool
 	CreatedAt time.Time
 	UpdateAt  time.Time
