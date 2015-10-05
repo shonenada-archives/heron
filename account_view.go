@@ -9,3 +9,8 @@ func AccountSignInViewController(c web.C, w http.ResponseWriter, r *http.Request
 	RenderTemplate(w, "account/signin.html", "base.html", nil)
 	return
 }
+
+func AccountSignUpViewController(c web.C, w http.ResponseWriter, r *http.Request) {
+	RenderTemplate(w, "account/signup.html", "base.html", nil)
+	return
+}

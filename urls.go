@@ -12,15 +12,17 @@ type Route struct {
 }
 
 var routes = []Route{
-	{"/", []string{"GET"}, IndexController},
 	{"/apis/accounts", []string{"POST"}, AccountController},
-	{"/apis/accounts/:name", []string{"GET"}, AccountController},
+	{"/apis/accounts/:username", []string{"GET"}, AccountController},
 	{"/apis/accounts/sign", []string{"POST", "DELETE"}, AccountSignController},
 	{"/apis/events", []string{"GET", "POST"}, EventsController},
 	{"/apis/events/:eid", []string{"GET", "DELETE"}, EventController},
 	{"/apis/follows", []string{"POST"}, FollowsController},
 	{"/apis/follows/:fid", []string{"DELETE"}, FollowController},
+
+	{"/", []string{"GET"}, IndexController},
 	{"/account/signin", []string{"GET"}, AccountSignInViewController},
+	{"/account/signup", []string{"GET"}, AccountSignUpViewController},
 }
 
 func SetupRoutes() {

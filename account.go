@@ -13,9 +13,9 @@ func AccountController(c web.C, w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	db := GetDatabase()
 	if r.Method == "GET" {
-		name := c.URLParams["name"]
+		username := c.URLParams["username"]
 		user := models.Account{}
-		db.Where("username = ?", name).First(&user)
+		db.Where("username = ?", username).First(&user)
 		if user.Username == "" {
 			raw_data := map[string]string{"message": "user not found"}
 			data, err := json.Marshal(raw_data)
@@ -32,6 +32,62 @@ func AccountController(c web.C, w http.ResponseWriter, r *http.Request) {
 	}
 
 	if r.Method == "POST" {
+		username := r.PostForm.Get("username")
+		password := r.PostForm.Get("password")
+		repeatPassword := r.PostForm.Get("repeat-password")
+		if username == "" {
+			RenderJson(w, map[string]interface{}{
+				"success": false,
+				"message": "username cannot be empty",
+			})
+			return
+		}
+		if password == "" {
+			RenderJson(w, map[string]interface{}{
+				"success": false,
+				"message": "password cannot be empty",
+			})
+			return
+		}
+		if repeatPassword == "" {
+			RenderJson(w, map[string]interface{}{
+				"success": false,
+				"message": "repeat password cannot be empty",
+			})
+			return
+		}
+		if password != repeatPassword {
+			RenderJson(w, map[string]interface{}{
+				"success": false,
+				"message": "repeat password is not match with passwrord",
+			})
+			return
+		}
+		account := models.Account{}
+		db.Where("username = ?", username).First(&account)
+		if account.Username != "" {
+			RenderJson(w, map[string]interface{}{
+				"success": false,
+				"message": "username exists",
+			})
+			return
+		}
+		account.Username = username
+		account.Password = password
+		account.Actived = true
+		if db.NewRecord(account) {
+			db.Create(&account)
+			RenderJson(w, map[string]interface{}{
+				"success": true,
+			})
+			return
+		} else {
+			RenderJson(w, map[string]interface{}{
+				"success": false,
+				"message": "record exist",
+			})
+			return
+		}
 	}
 }
 

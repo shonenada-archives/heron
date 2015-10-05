@@ -4,9 +4,9 @@
 {{ end }}
 
 {{ define "Content" }}
-<div id="signin">
+<div id="signup">
   <div id="tips"></div>
-  <form id="signin-form" action="/apis/accounts/sign">
+  <form id="signup-form" action="/apis/accounts">
     <section>
       <label for="input-username">Username: </label>
       <input id="input-username" name="username" type="text" />
@@ -16,9 +16,13 @@
       <input id="input-password" name="password" type="password" />
     </section>
     <section>
-      <button>SignIn</button>
+      <label for="input-repeat-password">Repeat Password: </label>
+      <input id="input-repeat-password" name="repeat-password" type="password" />
+    </section>
+    <section>
+      <button>SignUp</button>
       <br />
-      <a href="/account/signup">SignUp</a>
+      <a href="/account/signin">SignIn</a>
     </section>
   </form>
 </div>
