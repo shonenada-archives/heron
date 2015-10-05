@@ -32,7 +32,7 @@ assets =
     "#{project.src}/{#{dirs}}/**/*.{#{exts}}"
 
 gulp.task 'clean', ['clean:dist']
-gulp.task 'build', ['stylus', 'coffee']
+gulp.task 'build', ['stylus', 'coffee', 'collect']
 gulp.task 'default', ['clean'], ->
   gulp.start 'build'
 
@@ -50,7 +50,7 @@ gulp.task 'stylus', ->
   options =
     use: nib()
     compress: not argv.debug
-  gulp.src "#{project.src}/**/*.{#{styles.exts.join(',')}}"
+  gulp.src "#{project.src}/**/*.styl"
     .pipe stylus options
     .pipe gulp.dest "#{project.dest}"
     .pipe browserSync.reload
@@ -59,7 +59,7 @@ gulp.task 'stylus', ->
 gulp.task 'coffee', ->
   options =
     bare: true
-  stream = gulp.src "#{project.src}/**/*.{#{scripts.exts.join(',')}}"
+  stream = gulp.src "#{project.src}/**/*.coffee"
     .pipe plumber()
     .pipe coffee options
   unless argv.debug
@@ -67,6 +67,10 @@ gulp.task 'coffee', ->
   stream.pipe gulp.dest "#{project.dest}"
     .pipe browserSync.reload
       stream: true
+
+gulp.task 'collect', ->
+  gulp.src "#{project.src}/**/*.{js,css}"
+    .pipe gulp.dest "#{project.dest}"
 
 gulp.task 'browser-sync', ->
   browserSync
