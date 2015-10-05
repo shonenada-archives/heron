@@ -25,3 +25,5 @@ _testmain.go
 static/
 .envnode_modules/
 *.log
+
+assets/plugins
