@@ -12,8 +12,8 @@ import (
 func EventsController(c web.C, w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	db := GetDatabase()
-	currentUser, err := CurrentUser(r)
-	if err != nil || currentUser.Username == "" {
+	currentAccount, err := CurrentAccount(r)
+	if err != nil || currentAccount.Username == "" {
 		RenderJson(w, map[string]interface{}{
 			"success": false,
 			"message": "user not login",
@@ -32,7 +32,7 @@ func EventsController(c web.C, w http.ResponseWriter, r *http.Request) {
 			})
 			return
 		}
-		event := models.Event{Name: name, Content: content, Due: due, UserId: currentUser.ID}
+		event := models.Event{Name: name, Content: content, Due: due, AccountId: currentAccount.ID}
 		if db.NewRecord(event) {
 			db.Create(&event)
 			RenderJson(w, map[string]interface{}{
@@ -52,7 +52,7 @@ func EventsController(c web.C, w http.ResponseWriter, r *http.Request) {
 func EventController(c web.C, w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	db := GetDatabase()
-	currentUser, err := CurrentUser(r)
+	currentAccount, err := CurrentAccount(r)
 	if err != nil {
 		RenderJson(w, map[string]interface{}{
 			"success": false,
@@ -86,7 +86,7 @@ func EventController(c web.C, w http.ResponseWriter, r *http.Request) {
 	}
 
 	if r.Method == "DELETE" {
-		if event.UserId != currentUser.ID {
+		if event.AccountId != currentAccount.ID {
 			RenderJson(w, map[string]interface{}{
 				"success": false,
 				"message": "permission denied",

@@ -16,5 +16,6 @@ func IndexController(c web.C, w http.ResponseWriter, r *http.Request) {
 	db.Where("created_at BETWEEN ? AND ?", today, tomorrow).Find(&events)
 	RenderTemplate(w, "index.html", "base.html", map[string]interface{}{
 		"events": events,
+		"db":     db,
 	})
 }

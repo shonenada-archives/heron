@@ -18,15 +18,15 @@ func RenderJson(w http.ResponseWriter, data interface{}) {
 	fmt.Fprintf(w, string(j))
 }
 
-func CurrentUser(r *http.Request) (models.Account, error) {
+func CurrentAccount(r *http.Request) (models.Account, error) {
 	store := sessions.NewCookieStore([]byte(Config.SecretKey))
-	session, err := store.Get(r, "user")
+	session, err := store.Get(r, "account")
 	if err != nil {
 		return models.Account{}, err
 	}
 	username := session.Values["username"]
 	db := GetDatabase()
-	user := models.Account{}
-	db.Where("username = ?", username).First(&user)
-	return user, nil
+	account := models.Account{}
+	db.Where("username = ?", username).First(&account)
+	return account, nil
 }

@@ -10,8 +10,8 @@ import (
 func FollowsController(c web.C, w http.ResponseWriter, r *http.Request) {
 	r.ParseForm()
 	db := GetDatabase()
-	currentUser, err := CurrentUser(r)
-	if err != nil || currentUser.Username == "" {
+	currentAccount, err := CurrentAccount(r)
+	if err != nil || currentAccount.Username == "" {
 		RenderJson(w, map[string]interface{}{
 			"success": false,
 			"message": "user not login",
@@ -29,7 +29,7 @@ func FollowsController(c web.C, w http.ResponseWriter, r *http.Request) {
 			})
 			return
 		}
-		follow := models.Follow{UserId: currentUser.ID, FollowId: account.ID}
+		follow := models.Follow{AccountId: currentAccount.ID, FollowId: account.ID}
 		if db.NewRecord(&follow) {
 			db.Create(&follow)
 			RenderJson(w, map[string]interface{}{
@@ -48,8 +48,8 @@ func FollowsController(c web.C, w http.ResponseWriter, r *http.Request) {
 
 func FollowController(c web.C, w http.ResponseWriter, r *http.Request) {
 	db := GetDatabase()
-	currentUser, err := CurrentUser(r)
-	if err != nil || currentUser.Username == "" {
+	currentAccount, err := CurrentAccount(r)
+	if err != nil || currentAccount.Username == "" {
 		RenderJson(w, map[string]interface{}{
 			"success": false,
 			"message": "user not login",
@@ -69,14 +69,14 @@ func FollowController(c web.C, w http.ResponseWriter, r *http.Request) {
 		} else {
 			follow := models.Follow{}
 			db.Where("id = ?", followId).First(&follow)
-			if follow.UserId <= 0 {
+			if follow.AccountId <= 0 {
 				RenderJson(w, map[string]interface{}{
 					"success": false,
 					"message": "not found",
 				})
 				return
 			}
-			if follow.UserId != currentUser.ID {
+			if follow.AccountId != currentAccount.ID {
 				RenderJson(w, map[string]interface{}{
 					"success": false,
 					"message": "permission denied",

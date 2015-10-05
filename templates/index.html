@@ -1,8 +1,23 @@
 {{ define "HeaderHTML" }}
 <link rel="stylesheet" type="text/css" href="/static/styles/index.css" />
+<link rel="stylesheet" type="text/css" href="/static/styles/date.css" />
 {{ end }}
 
 {{ define "Content" }}
+<h1 class="title">DateTable</h1>
+<div class="wrapper">
+  {{range $event := .events}}
+  {{ $account := .GetUser $.db }}
+  <div class="date-container">
+    <div class="avatar">
+      <img src="{{ $account.Avatar }}" />
+    </div>
+    <div class="info">
+      {{ $event.Content }}
+    </div>
+  </div>
+  {{end}}
+</div>
 {{ end }}
 
 {{ define "FooterHTML" }}
