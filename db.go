@@ -19,8 +19,8 @@ func Migrate() {
 	db.Set("gorm:table_options", "ENGINE=InnoDB").CreateTable(&models.Account{})
 	db.Set("gorm:table_options", "ENGINE=InnoDB").CreateTable(&models.Event{})
 	db.Set("gorm:table_options", "ENGINE=InnoDB").CreateTable(&models.Follow{})
-	db.Model(&models.Event{}).AddForeignKey("user_id", "users(id)", "RESTRICT", "RESTRICT")
-	db.Model(&models.Follow{}).AddForeignKey("user_id", "users(id)", "RESTRICT", "RESTRICT")
-	db.Model(&models.Follow{}).AddForeignKey("follow_id", "users(id)", "RESTRICT", "RESTRICT")
+	db.Model(&models.Event{}).AddForeignKey("account_id", "accounts(id)", "RESTRICT", "RESTRICT")
+	db.Model(&models.Follow{}).AddForeignKey("account_id", "accounts(id)", "RESTRICT", "RESTRICT")
+	db.Model(&models.Follow{}).AddForeignKey("follow_id", "accounts(id)", "RESTRICT", "RESTRICT")
 	db.AutoMigrate(&models.Account{}, &models.Follow{}, &models.Event{})
 }

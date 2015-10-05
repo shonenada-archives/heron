@@ -6,7 +6,7 @@ import (
 
 type Follow struct {
 	ID        uint `gorm:"primary_key"`
-	UserId    uint
+	AccountId uint
 	FollowId  uint
 	CreatedAt time.Time
 	UpdateAt  time.Time
